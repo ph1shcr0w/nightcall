@@ -488,7 +488,7 @@ def expandCidrs(hosts):
    # import ipaddress, collectionsOrderedDict
    cidrs = []
    for address in hosts.keys():
-       if "/" in address:
+      if "/" in address:
             cidrs.append(address)
    for cidr in cidrs:
       del hosts[cidr]
@@ -514,7 +514,7 @@ def discoverHosts(iface_cfg, targets):
    
       try:
          mass_string = MASSCAN.format(targets=" ".join(targets), iface=iface_cfg)
- 
+
          logging.info("Executing: {}".format(mass_string))
          
          # Spawn masscan subprocess
@@ -607,18 +607,18 @@ def cleanupReq():
 
 # todo: debugging message on failure
 def installPrereqs():
-  printAndLog("Attempting to automatically install prerequisite tooling...")
-  null = subprocess.DEVNULL
-  aptRes = subprocess.run("apt-get install python3-pip masscan nfs-common xvfb -yqq", shell=True, stdout=null, stderr=null).returncode
-  pipRes = subprocess.run("pip3 install tqdm", shell=True, stdout=null, stderr=null).returncode
-  if pipRes:
-     pipRes = subprocess.run("pip3 install tqdm*.whl -f ./ --no-index", shell=True, stdout=null, stderr=null).returncode
-  if aptRes or pipRes:
-     printAndLog("Unable to install prereqs. See comments for manual procedure\n")
-     sys.exit(1)
-  printAndLog("Prereqs successfully installed. Relaunch script\n")
-  sys.exit(0)
-    
+   printAndLog("Attempting to automatically install prerequisite tooling...")
+   null = subprocess.DEVNULL
+   aptRes = subprocess.run("apt-get install python3-pip masscan nfs-common xvfb -yqq", shell=True, stdout=null, stderr=null).returncode
+   pipRes = subprocess.run("pip3 install tqdm", shell=True, stdout=null, stderr=null).returncode
+   if pipRes:
+      pipRes = subprocess.run("pip3 install tqdm*.whl -f ./ --no-index", shell=True, stdout=null, stderr=null).returncode
+   if aptRes or pipRes:
+      printAndLog("Unable to install prereqs. See comments for manual procedure\n")
+      sys.exit(1)
+   printAndLog("Prereqs successfully installed. Relaunch script\n")
+   sys.exit(0)
+   
 def initLogging():
    logging.basicConfig(filename=LOG_FILENAME, level=LOG_LEVEL, format=LOG_FORMAT, datefmt=LOG_DATEFMT)
    logging.info("Nightcall v{}".format(VERSION))
